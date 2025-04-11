@@ -2,7 +2,7 @@ import base64
 import logging
 import requests
 from data.prompt import get_prompt
-from data.config import LLM_API_URL
+from data.config import LLM_API_URL, LLM_MODEL_NAME
 
 def send_to_lm_studio(image_path):
     """Send image data to LM Studio API and return the response."""
@@ -14,7 +14,7 @@ def send_to_lm_studio(image_path):
         prompt = get_prompt()
         
         payload = {
-            "model": "qwen2-vl-7b-instruct",
+            "model": LLM_MODEL_NAME,
             "messages": [
                 {
                     "role": "user",

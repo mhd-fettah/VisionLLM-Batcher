@@ -6,7 +6,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Environment variables.
-LLM_API_URL = os.getenv("LLM_API_URL")
+LLM_API_URL = os.getenv('LLM_API_URL')
+LLM_MODEL_NAME = os.getenv('LLM_MODEL_NAME', 'qwen2-vl-7b-instruct')  # Default if not specified
 if not LLM_API_URL:
     raise ValueError("LLM_API_URL is not set in the environment variables.")
 

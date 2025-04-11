@@ -45,10 +45,11 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-5. Create a `.env` file in the root directory. Replace the API URL below with any LLM endpoint that supports image inputs:
+5. Create a `.env` file in the root directory. Configure the following variables:
 
 ```plaintext
 LLM_API_URL=http://localhost:1234/v1/chat/completions
+LLM_MODEL_NAME=qwen2-vl-7b-instruct
 ```
 
 ## Usage
