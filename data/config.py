@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Environment variables
-LM_STUDIO_API_URL = os.getenv("LM_STUDIO_API_URL")
+LLM_API_URL = os.getenv("LLM_API_URL")
 
 # Directories and File Paths
 BASE_DIR = Path.cwd()

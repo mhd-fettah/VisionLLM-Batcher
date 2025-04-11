@@ -2,7 +2,7 @@ import base64
 import logging
 import requests
 from data.prompt import get_prompt
-from data.config import LM_STUDIO_API_URL
+from data.config import LLM_API_URL
 
 def send_to_lm_studio(image_path):
     """Send image data to LM Studio API and return the response."""
@@ -32,7 +32,7 @@ def send_to_lm_studio(image_path):
             "temperature": 0.7
         }
         
-        response = requests.post(LM_STUDIO_API_URL, json=payload)
+        response = requests.post(LLM_API_URL, json=payload)
         response.raise_for_status()
         return response.json()['choices'][0]['message']['content']
     except Exception as e:
