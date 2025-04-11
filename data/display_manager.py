@@ -1,10 +1,27 @@
 from tqdm import tqdm
+import os
+
+class DummyTqdm:
+    def __init__(self, total, desc, unit):
+        self.total = total
+        self.desc = desc
+        self.unit = unit
+    def update(self, n):
+        pass
+    def set_description(self, desc):
+        self.desc = desc
+    def write(self, message):
+        print(message)
 
 def init_progress(total_images):
     """
     Initialize and return a tqdm progress bar with a given number of total images.
+    If the environment variable DISABLE_TQDM is set, returns a dummy progress object.
     """
-    return tqdm(total=total_images, desc="Starting...", unit="img")
+    if os.getenv("DISABLE_TQDM", "false").lower() in ["true", "1", "yes"]:
+        return DummyTqdm(total=total_images, desc="Starting...", unit="img")
+    else:
+        return tqdm(total=total_images, desc="Starting...", unit="img")
 
 def update_description(pbar, image_name):
     """

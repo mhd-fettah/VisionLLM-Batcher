@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 from data.config import INPUT_IMAGES_DIR, OUTPUT_DIR, PROMPT_FILE
 
 def setup_batch_folders(batch_id):
@@ -6,9 +7,15 @@ def setup_batch_folders(batch_id):
     batch_input = INPUT_IMAGES_DIR / f"batch_{batch_id}"
     batch_output = OUTPUT_DIR / f"batch_{batch_id}"
     
-    batch_input.mkdir(parents=True, exist_ok=True)
-    batch_output.mkdir(parents=True, exist_ok=True)
-    
+    try:
+        batch_input.mkdir(parents=True, exist_ok=True)
+        logging.info(f"Created or verified batch input folder: {batch_input}")
+        batch_output.mkdir(parents=True, exist_ok=True)
+        logging.info(f"Created or verified batch output folder: {batch_output}")
+    except Exception as e:
+        logging.exception("Error creating batch directories")
+        raise
+
     # Verify that the prompt file exists and is non-empty
     if not PROMPT_FILE.exists():
         error_msg = "Error: Prompt file does not exist. Please add the prompt text."

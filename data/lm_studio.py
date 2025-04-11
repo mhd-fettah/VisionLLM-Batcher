@@ -7,7 +7,7 @@ from data.config import LLM_API_URL
 def send_to_lm_studio(image_path):
     """Send image data to LM Studio API and return the response."""
     try:
-        # Read image and encode to base64
+        # Read image and encode to base64.
         with open(image_path, 'rb') as image_file:
             image_data = base64.b64encode(image_file.read()).decode('utf-8')
         
@@ -32,11 +32,20 @@ def send_to_lm_studio(image_path):
             "temperature": 0.7
         }
         
-        response = requests.post(LLM_API_URL, json=payload)
+        # Add a timeout parameter to avoid hanging indefinitely.
+        response = requests.post(LLM_API_URL, json=payload, timeout=10)
         response.raise_for_status()
-        return response.json()['choices'][0]['message']['content']
+        json_response = response.json()
+        
+        # Validate the expected response structure.
+        choices = json_response.get('choices')
+        if choices and isinstance(choices, list) and len(choices) > 0:
+            return choices[0].get('message', {}).get('content')
+        else:
+            error_msg = f"Unexpected response format: {json_response}"
+            logging.error(error_msg)
+            return None
     except Exception as e:
-        error_msg = f"Error processing {image_path.name}: {str(e)}"
-        logging.error(error_msg)
-        print(error_msg)
+        logging.exception("Error processing %s", image_path.name)
+        print(f"Error processing {image_path.name}: {str(e)}")
         return None

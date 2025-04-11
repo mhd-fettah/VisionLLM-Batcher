@@ -1,9 +1,16 @@
 import logging
 import time
+import uuid
 from pathlib import Path
 
-# Import modules from the data folder
-from data.config import INPUT_IMAGES_DIR
+# Setup centralized logging using the LOG_FILE defined in the config.
+from data.config import LOG_FILE, INPUT_IMAGES_DIR, OUTPUT_DIR
+logging.basicConfig(
+    filename=LOG_FILE,
+    level=logging.DEBUG,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
 from data.settings import load_settings, save_settings
 from data.batch_manager import setup_batch_folders
 from data.lm_studio import send_to_lm_studio
@@ -56,12 +63,15 @@ def process_images():
 
                     # Move image after successful processing.
                     new_image_path = batch_input / image_path.name
+                    # Avoid file name collision by appending a unique identifier if needed.
+                    if new_image_path.exists():
+                        new_image_path = batch_input / f"{image_path.stem}_{uuid.uuid4().hex}{image_path.suffix}"
                     image_path.rename(new_image_path)
                     write_message(pbar, f"[+] Moved {image_path.name}")
                     success_count += 1
                 except (IOError, OSError) as e:
                     write_message(pbar, f"[-] Error handling {image_path.name}: {str(e)}")
-                    logging.error(f"Error handling {image_path.name}: {str(e)}")
+                    logging.exception(f"Error handling {image_path.name}")
                     fail_count += 1
             else:
                 write_message(pbar, f"[-] Failed processing {image_path.name}")
@@ -80,7 +90,7 @@ def process_images():
             save_settings(settings)
         except Exception as e:
             error_msg = f"Error updating batch ID: {str(e)}"
-            logging.error(error_msg)
+            logging.exception(error_msg)
             print(error_msg)
             raise
 
@@ -89,7 +99,7 @@ def process_images():
 
     except Exception as e:
         error_msg = f"Critical error: {str(e)}"
-        logging.error(error_msg)
+        logging.exception(error_msg)
         print(error_msg)
 
 if __name__ == "__main__":
