@@ -173,6 +173,7 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# Ignore input and output directories
-/input_images/
-/output_responses/
+# Ignore all files in input_images folder except prompt.txt
+input_images/*
+!input_images/prompt.txt
+output_responses/*

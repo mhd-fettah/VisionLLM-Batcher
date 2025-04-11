@@ -1,0 +1,21 @@
+Analyze the attached image of a user interface and generate a minimal product requirement summary with the following structure:
+
+Controller:
+    Controller name (e.g., CounselorController)
+    List the actions/methods needed (e.g., edit, update, uploadProfilePicture)
+
+Database:
+    Main table name
+    Fields (column names + types if visible/inferable)
+    Note any relationships (e.g., city → country foreign key)
+
+View:
+    Blade file name (e.g., counselor/edit.blade.php)
+    Key components or sections (e.g., profile image upload, basic info form)
+
+Other Notes:
+    Form behavior (e.g., dynamic dropdowns, validation, file upload handling)
+    Required/optional field assumptions
+    Permissions or role assumptions if relevant
+
+- Format the response in clean bullet points, no extra explanation. Keep it short and developer-friendly.
