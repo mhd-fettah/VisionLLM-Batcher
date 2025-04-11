@@ -2,6 +2,11 @@
 
 **VisionLLM Batcher** is a local-first AI image batch processing tool designed to work with any large language model (LLM) that supports image inputs. The tool enables automated analysis and information extraction from batches of images using custom prompts. It is fully prompt-agnostic and can handle a variety of image-processing tasks beyond UI specifications.
 
+<p align="center">
+  <img src="visionllm-banner.png" alt="VisionLLM Batcher banner" />
+</p>
+
+
 We highly recommend using **LM Studio** in combination with the **Qwen2-VL-7B-Instruct** model for an efficient and private local inference setup. This model offers robust image understanding and high-quality text output. LM Studio makes it easy to run the model locally with a simple interface and API access. However, the tool is LLM-agnostic—so you're free to integrate any other LLM API that supports image inputs.
 
 ## Features
