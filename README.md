@@ -93,6 +93,30 @@ Other Notes:
 - Format the response in clean bullet points, no extra explanation. Keep it short and developer-friendly.
 ```
 
+### UI to feature list Json
+```txt
+You are a UI feature analyzer. I will give you a screenshot.
+
+Focus only on the central content area. Ignore sidebars, navigation, and footers completely.
+
+Return your output strictly in the following JSON format:
+
+{
+  "pageTitle": "Extracted Title",
+  "purpose": "What the screen is for",
+  "fields": [
+    "Field 1",
+    "Field 2"
+  ],
+  "actions": [
+    "Button 1",
+    "Button 2"
+  ]
+}
+
+Keep field and action names exactly as shown in the UI, and make sure the output is clean, minimal, and accurate. No extra explanations or comments — only valid JSON.
+```
+
 ### Extract UI Specifications
 ```txt
 Extract a detailed specification sheet from this UI design image, including component names, hierarchy, dimensions, and color codes.
